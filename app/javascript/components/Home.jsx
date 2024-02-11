@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Home = () => {
-    return (<div> Hello. </div>)
+    return (
+        <Fragment>
+            <p> Hi </p>
+            <p class="text-3xl font-bold">
+                Hello world!
+            </p>
+        </Fragment>
+    )
 }
 
 export default Home
