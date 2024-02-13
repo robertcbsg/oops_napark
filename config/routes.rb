@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # get 'home/index'
-  root 'home#index'    # [RDC] map requests to '/' to the index action of the home controller
+  root 'home#index'
 
   namespace :api do
     resources :clock

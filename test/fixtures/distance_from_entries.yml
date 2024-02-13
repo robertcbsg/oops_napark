@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  distance: 1
+  parking_entry_point: one
+  parking_slot: one
+
+two:
+  distance: 1
+  parking_entry_point: two
+  parking_slot: two

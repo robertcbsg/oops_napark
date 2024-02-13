@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time_in: 2024-02-13 23:51:26
+  effective_time_in: 2024-02-13 23:51:26
+  time_out: 2024-02-13 23:51:26
+  total_parking_fee: 9.99
+  vehicle: one
+  parking_slot: one
+
+two:
+  time_in: 2024-02-13 23:51:26
+  effective_time_in: 2024-02-13 23:51:26
+  time_out: 2024-02-13 23:51:26
+  total_parking_fee: 9.99
+  vehicle: two
+  parking_slot: two
