@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_160007) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_13_162236) do
   create_table "clocks", force: :cascade do |t|
     t.datetime "datetime_now"
     t.datetime "created_at", null: false
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_160007) do
     t.integer "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plate_number"], name: "index_vehicles_on_plate_number", unique: true
   end
 
   add_foreign_key "distance_from_entries", "parking_entry_points"
