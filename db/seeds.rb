@@ -8,26 +8,22 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-clock = Clock.create([{ datetime_now: Time.now}])
+clock = Clock.create({ datetime_now: Time.now})
 
-parking_lot = ParkingLot.create([
-    {
-        name: "OOPs Parking Lot"
-    }
-])
+parking_lot = ParkingLot.create({ name: "OOPs Parking Lot" })
 
 parking_entry_points = ParkingEntryPoint.create([
     {
         name: "North Exit",
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     },
     {
         name: "West Exit",
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     },
     {
         name: "Southwest Exit",
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     }
 ])
 
@@ -35,17 +31,17 @@ parking_slots = ParkingSlot.create([
     {
         size: 2,
         is_available: false,
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     },
     {
         size: 1,
         is_available: false,
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     },
     {
         size: 0,
         is_available: false,
-        parking_lot_id: parking_lot[0].id
+        parking_lot_id: parking_lot.id
     }
 ])
 
