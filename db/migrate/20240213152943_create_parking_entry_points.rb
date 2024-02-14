@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateParkingEntryPoints < ActiveRecord::Migration[7.1]
   def change
     create_table :parking_entry_points do |t|

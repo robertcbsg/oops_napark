@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class ParkController < ApplicationController
@@ -20,7 +22,7 @@ module Api
       #
       def create
         vehicle_params = params[:vehicle]
-        parking_entry_point_id = params[:parking_entry_point][:id].to_i
+        params[:parking_entry_point][:id].to_i
 
         vehicle = Vehicle.find_by(plate_number: vehicle_params[:plate_number])
 
@@ -40,7 +42,7 @@ module Api
         #         "updated_at": "2024-02-14T20:19:55.540Z"
         #     }
         # }
-        elsif vehicle && vehicle.is_parked
+        elsif vehicle&.is_parked
           error = "#{vehicle_params[:plate_number]} is currently parked, please double check the plate number."
           return render json: { error: }, status: 422
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ParkingSlotSerializer
   include FastJsonapi::ObjectSerializer
   attributes :id, :size, :is_available, :parking_lot_id

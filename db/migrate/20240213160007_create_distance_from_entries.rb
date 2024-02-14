@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDistanceFromEntries < ActiveRecord::Migration[7.1]
   def change
     create_table :distance_from_entries do |t|

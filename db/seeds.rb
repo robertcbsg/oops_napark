@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -8,7 +10,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-clock = Clock.create({ datetime_now: Time.now })
+Clock.create({ datetime_now: Time.now })
 
 parking_lot = ParkingLot.create({ name: 'OOPs Parking Lot' })
 
@@ -56,15 +58,15 @@ parking_slots.each do |slot|
   end
 end
 
-vehicles = Vehicle.create([
-                            {
-                              plate_number: 'CDN103',
-                              is_parked: false,
-                              size: 1
-                            },
-                            {
-                              plate_number: 'ASI129',
-                              is_parked: false,
-                              size: 0
-                            }
-                          ])
+Vehicle.create([
+                 {
+                   plate_number: 'CDN103',
+                   is_parked: false,
+                   size: 1
+                 },
+                 {
+                   plate_number: 'ASI129',
+                   is_parked: false,
+                   size: 0
+                 }
+               ])
