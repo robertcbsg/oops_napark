@@ -10,63 +10,77 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Reset local db
+DistanceFromEntry.delete_all
+ParkingSlot.delete_all
+ParkingEntryPoint.delete_all
+
+ParkingLot.delete_all
+Vehicle.delete_all
+Clock.delete_all
+
+
 Clock.create({ datetime_now: Time.now })
 
 parking_lot = ParkingLot.create({ name: 'OOPs Parking Lot' })
 
-parking_entry_points = ParkingEntryPoint.create([
-                                                  {
-                                                    name: 'North Exit',
-                                                    parking_lot_id: parking_lot.id
-                                                  },
-                                                  {
-                                                    name: 'West Exit',
-                                                    parking_lot_id: parking_lot.id
-                                                  },
-                                                  {
-                                                    name: 'Southwest Exit',
-                                                    parking_lot_id: parking_lot.id
-                                                  }
-                                                ])
+parking_entry_points = ParkingEntryPoint
+    .create([
+        {
+            name: 'North Exit',
+            parking_lot_id: parking_lot.id
+        },
+        {
+            name: 'West Exit',
+            parking_lot_id: parking_lot.id
+        },
+        {
+            name: 'Southwest Exit',
+            parking_lot_id: parking_lot.id
+        }
+    ])
 
-parking_slots = ParkingSlot.create([
-                                     {
-                                       size: 2,
-                                       is_available: false,
-                                       parking_lot_id: parking_lot.id
-                                     },
-                                     {
-                                       size: 1,
-                                       is_available: false,
-                                       parking_lot_id: parking_lot.id
-                                     },
-                                     {
-                                       size: 0,
-                                       is_available: false,
-                                       parking_lot_id: parking_lot.id
-                                     }
-                                   ])
+parking_slots = ParkingSlot
+    .create([
+        {
+            size: 2,
+            is_available: false,
+            parking_lot_id: parking_lot.id
+        },
+        {
+            size: 1,
+            is_available: false,
+            parking_lot_id: parking_lot.id
+        },
+        {
+            size: 0,
+            is_available: false,
+            parking_lot_id: parking_lot.id
+        }
+    ])
 
 # [RDC] For demo purposes
 parking_slots.each do |slot|
   parking_entry_points.each do |entry|
-    DistanceFromEntry.create({
-                               distance: rand(1..5),
-                               parking_slot_id: slot.id,
-                               parking_entry_point_id: entry.id
-                             })
+    DistanceFromEntry
+        .create({
+            distance: rand(1..5),
+            parking_slot_id: slot.id,
+            parking_entry_point_id: entry.id
+        })
   end
 end
 
-Vehicle.create([
-                 {
-                   plate_number: 'CDN103',
-                   is_parked: false,
-                   size: 1
-                 },
-                 {
-                   plate_number: 'ASI129',
-                   is_parked: false,
-                   size: 0
-                 }
-               ])
+vehicles = Vehicle
+    .create([
+        {
+            plate_number: 'CDN103',
+            is_parked: false,
+            size: 1
+        },
+        {
+            plate_number: 'ASI129',
+            is_parked: false,
+            size: 0
+        }
+    ])
