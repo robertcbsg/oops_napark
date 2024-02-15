@@ -22,10 +22,8 @@ module Api
           ActiveRecord::Base.transaction do
             params[:entry_points].each do |entry_point|
               parking_entry_point = ParkingEntryPoint.create(
-                {
                   name: entry_point[:name],
                   parking_lot_id: parking_lot[:id]
-                }
               )
               parking_entry_points.append(serializer(parking_entry_point)[:data][0])
             end
@@ -34,26 +32,6 @@ module Api
           render json: { parking_entry_points: }
         rescue ActiveRecord::RecordNotUnique => e
           render json: { error: e }
-        end
-
-        private
-
-        def serializer(object)
-          object_class = object.is_a?(ActiveRecord::Relation) ? object[0].class : object.class
-          object_data = object.is_a?(ActiveRecord::Relation) ? object : [object]
-
-          serializer = get_serializer(object_class)
-          puts "No serializer for #{object_class}" unless serializer
-
-          serializer.new(object_data).serializable_hash
-        end
-
-        def get_serializer(object_class)
-          if object_class == ParkingEntryPoint
-            ParkingEntryPointSerializer
-          elsif object_class == ParkingLot
-            ParkingLotSerializer
-          end
         end
       end
     end

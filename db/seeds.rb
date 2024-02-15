@@ -44,17 +44,17 @@ parking_slots = ParkingSlot
     .create([
         {
             size: 2,
-            is_available: false,
+            is_available: true,
             parking_lot_id: parking_lot.id
         },
         {
             size: 1,
-            is_available: false,
+            is_available: true,
             parking_lot_id: parking_lot.id
         },
         {
             size: 0,
-            is_available: false,
+            is_available: true,
             parking_lot_id: parking_lot.id
         }
     ])

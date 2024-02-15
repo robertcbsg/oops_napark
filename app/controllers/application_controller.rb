@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def get_serializer(object_class)
     if object_class == ParkingLot
-    ParkingLotSerializer
+      ParkingLotSerializer
     elsif object_class == ParkingEntryPoint
       ParkingEntryPointSerializer
     elsif object_class == ParkingSlot
@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
       VehicleSerializer
     elsif object_class == ParkingSlip
       ParkingSlipSerializer
+    elsif object_class == Clock
+      ClockSerializer
     end
   end
 end
