@@ -1,8 +1,8 @@
 # README
 
-* Configuration
+* Install dependencies
   1. run `bundle install`
-  2.  
+  2. run `yarn install`
 * Database creation
 
 * Database initialization
