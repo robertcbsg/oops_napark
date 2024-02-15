@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :clock, only: [:index]
+      resources :clock, only: [:index, :create]
       resources :park, only: [:index, :create]
+      resources :unpark, only: [:index, :create]
 
       namespace :parking do
         resources :entry_points, only: [:index, :show, :create]

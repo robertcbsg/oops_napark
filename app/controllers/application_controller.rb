@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
       ClockSerializer
     end
   end
+
+  def get_time_now
+    serializer(Clock.first)[:data][0][:attributes][:datetime_now]
+  end
 end
