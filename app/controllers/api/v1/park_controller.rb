@@ -3,8 +3,6 @@
 module Api
   module V1
     class ParkController < ApplicationController
-      protect_from_forgery with: :null_session
-
       # GET api/park/
       def index
         result = serializer(ParkingEntryPoint.first, ParkingEntryPointSerializer)
@@ -22,7 +20,7 @@ module Api
       #
       def create
         vehicle_params = params[:vehicle]
-        params[:parking_entry_point][:id].to_i
+        parking_entry_point_id = params[:parking_entry_point][:id].to_i
 
         vehicle = Vehicle.find_by(plate_number: vehicle_params[:plate_number])
 
@@ -48,15 +46,21 @@ module Api
         end
 
         vehicle = serializer(vehicle)[:data][0][:attributes]
-        parking_slots = ParkingSlot.where("is_available = 0 AND size >= #{vehicle[:size]}")
+        parking_slots = ParkingSlot
+            .joins(:distance_from_entries)
+            .where(is_available: false)
+            .where(size: vehicle[:size])
+            .where(distance_from_entries: { parking_entry_point_id: })
+
+        puts parking_slots.class
 
         unless parking_slots
           error = 'No possible or available slots at the moment.'
           return render json: { error: }, status: 422
         end
 
-        parking_slots = serializer(parking_slots)[:data]
-        puts parking_slots
+        # parking_slots = serializer(parking_slots)[:data]
+        # puts parking_slots
 
         render json: parking_slots
       end
@@ -68,9 +72,7 @@ module Api
           object_class = object.is_a?(ActiveRecord::Relation) ? object[0].class : object.class
           if object_class == Vehicle
             serializer = VehicleSerializer
-          elsif object_class ==  ParkingSlot
-            serializer = ParkingSlotSerializer
-          elsif object_class ==  ParkingSlot
+          elsif object_class == ParkingSlot
             serializer = ParkingSlotSerializer
           elsif object_class == ParkingEntryPoint
             serializer = ParkingEntryPointSerializer

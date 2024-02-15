@@ -3,7 +3,7 @@
 module Api
   module V1
     class ClockController < ApplicationController
-      # GET api/clock/
+      # GET api/v1/clock/
       def index
         clock = serializer(Clock.first)
 
