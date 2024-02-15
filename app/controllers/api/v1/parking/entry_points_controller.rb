@@ -16,14 +16,14 @@ module Api
         #   - entry_points: [{ name: string}]
         def create
           # TODO: add support for multiple ParkingLots
-          parking_lot = serializer(ParkingLot.first)[:data][0]
-          parking_entry_points = []
+          parking_lot = ParkingLot.first
 
+          parking_entry_points = []
           ActiveRecord::Base.transaction do
             params[:entry_points].each do |entry_point|
               parking_entry_point = ParkingEntryPoint.create(
                   name: entry_point[:name],
-                  parking_lot_id: parking_lot[:id]
+                  parking_lot_id: parking_lot.id
               )
               parking_entry_points.append(serializer(parking_entry_point)[:data][0])
             end

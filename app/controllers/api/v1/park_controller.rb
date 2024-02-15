@@ -40,13 +40,12 @@ module Api
           return render json: { error: }, status: 422
         end
 
-        parking_entry_point_id = serializer(parking_entry_point)[:data][0][:id]
-        vehicle = serializer(vehicle)[:data][0][:attributes]
+        parking_entry_point_id = parking_entry_point.id
         
         parking_slots =
           ParkingSlot.joins(:distance_from_entries)
                      .where(is_available: true)
-                     .where("size >= ?", vehicle[:size])
+                     .where("size >= ?", vehicle.size)
                      .where(distance_from_entries: { parking_entry_point_id: })
                      .order('distance_from_entries.distance')
 
@@ -55,16 +54,14 @@ module Api
           return render json: { error: }, status: 422
         end
 
-        nearest_parking_slot = ParkingSlotSerializer.new(
-          parking_slots, include: [:distance_from_entries]
-        ).serializable_hash[:data][0]
+        nearest_parking_slot = parking_slots[0]
 
-        distance_array = get_distance_array(nearest_parking_slot[:id])
-        parking_slip = park_vehicle(vehicle[:id], nearest_parking_slot[:id])
+        distance_array = get_distance_array(nearest_parking_slot.id)
+        parking_slip = park_vehicle(vehicle.id, nearest_parking_slot.id)
 
         render json: {
-          parking_slot_id: nearest_parking_slot[:id],
-          parking_slip_id: parking_slip[:id],
+          parking_slot_id: nearest_parking_slot.id,
+          parking_slip_id: parking_slip.id,
           distance_array:,
         }
       end
@@ -96,15 +93,31 @@ module Api
           Vehicle.find_by(id: vehicle_id).update(is_parked: true)
           ParkingSlot.find_by(id: parking_slot_id).update(is_available: false)
 
-          datetime_now = serializer(Clock.first)[:data][0][:attributes][:datetime_now]
+          datetime_now = get_time_now
+          effective_time_in = get_effective_time_in(datetime_now, vehicle_id)
           parking_slip = ParkingSlip.create(
             time_in: datetime_now,
-            effective_time_in: datetime_now,
+            effective_time_in:,
             vehicle_id:,
             parking_slot_id:,
           )
-          serializer(parking_slip)[:data][0][:attributes]
         end
+      end
+
+      def get_effective_time_in(time_in, vehicle_id)
+        parking_slip = ParkingSlip.find_by(vehicle_id:)
+
+        unless parking_slip&.time_out
+          return time_in
+        end
+
+        previous_time_out = parking_slip.time_out
+
+        unless  previous_time_out - time_in <= 3600.0
+          return time_in
+        end
+
+        parking_slip.effective_time_in
       end
     end
   end
