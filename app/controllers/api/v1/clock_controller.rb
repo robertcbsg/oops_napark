@@ -5,9 +5,9 @@ module Api
     # Simulate time passing (for demo purposes)
     class ClockController < ApplicationController
       def index
-        clock = serializer(Clock.first)
+        clock = Clock.first
 
-        datetime_now = clock[:data][:attributes]
+        datetime_now = clock.datetime_now
 
         render json: datetime_now
       end

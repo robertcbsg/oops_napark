@@ -7,7 +7,24 @@ export const api = createApi({
     getTime: builder.query({
       query: () => 'api/v1/clock',
     }),
+    getParkingSlips: builder.query({
+      query: () => 'api/v1/parking/slips',
+    }),
+    postPark: builder.mutation({
+      query: (parkBody) => ({
+        url: 'api/v1/park',
+        method: 'POST',
+        body: parkBody,
+      })
+    }),
+    postUnpark: builder.mutation({
+      query: (unparkBody) => ({
+        url: 'api/v1/unpark',
+        method: 'POST',
+        body: unparkBody,
+      })
+    }),
   }),
 });
 
-export const { useGetTimeQuery } = api;
+export const { useGetTimeQuery, useGetParkingSlipsQuery, usePostParkMutation, usePostUnparkMutation } = api;

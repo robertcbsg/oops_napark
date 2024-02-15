@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       namespace :parking do
         resources :entry_points, only: [:index, :show, :create]
         resources :slots, only: [:index, :show, :create, :edit]
+        resource :slips
       end
     end
   end
