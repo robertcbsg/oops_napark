@@ -11,12 +11,6 @@ module Api
 
         render json: datetime_now
       end
-      # GET api/clock/<param>
-      # def show
-      #     clock = Clock.first
-      #     puts "[RDC] SHOW"
-      #     render json: ClockSerializer.new(clock).serialized_json
-      # end
 
       private
 
