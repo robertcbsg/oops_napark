@@ -61,7 +61,8 @@ POST | `/api/v1/parking/slots`
 }
 ```
 
-At this point we should be set to go, but another thing to note is the 'clock' mechanic. For demo purposes, the time is manually set. This'll also help to test several scenarios faster.
+At this point we should be set to go, but another thing to note is the 'clock' mechanic.
+For demo purposes, the time is manually set, as this'll also help to test several scenarios faster.
 1. To "move" time forward, simply hit the clock api
 POST | `/api/v1/clock`
 ```
