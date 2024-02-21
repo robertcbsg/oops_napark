@@ -8,8 +8,9 @@ module Api
         clock = Clock.first
 
         datetime_now = clock.datetime_now
+        formatted_datetime_now = clock.datetime_now.strftime("%d %b %Y %I:%M %p")
 
-        render json: datetime_now
+        render json: { formatted_datetime_now: }
       end
 
       def create

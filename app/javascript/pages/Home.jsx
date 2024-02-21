@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useForm } from "react-hook-form"
 import {
+    useGetTimeQuery,
     useGetParkingSlipsQuery,
     usePostParkMutation,
     usePostUnparkMutation
@@ -27,22 +28,6 @@ import {
   } from "@/components/ui/table"
 
 
-
-const GridItem = () => {
-    // rounded-lg border-0
-    const baseBorderStyle = `
-        border-slate-200 outline-offset-4 
-        bg-slate-400 hover:bg-slate-500
-        `;
-        
-    return (
-        <div className={baseBorderStyle}>
-            ITEM
-            {/* <div class="font-sans text-4xl font-medium text-center">{"<Item />"}</div> */}
-        </div>
-    )
-}
-
 const Header = () => {
     return (
         <div className='pl-5 flex flex-row space-x-4'>
@@ -51,11 +36,11 @@ const Header = () => {
     );
 }
 
-const Clock = () => {
+const Clock = ({ data }) => {
     return (
         <div>
             <div className='pr-5 flex flex-row'>
-                <div className='font-medium text-white'> 2/17/2024 11:53 AM</div>
+                { data ?<div className='font-medium text-white'> {data.formatted_datetime_now}</div> : null}
             </div>
         </div>
     );
@@ -218,6 +203,8 @@ const ParkingSlipTable = ({ data }) => {
 
 const Home = () => {
     const { data } = useGetParkingSlipsQuery([]);
+    const timeData = useGetTimeQuery("");
+    // console.log(timeData.data);
 
     return (
         <div>
@@ -230,7 +217,7 @@ const Home = () => {
                     <div className='mb-1 rounded-r-lg col-start-9 col-span-4 row-start-1 row-span-1 bg-gray-900 flex items-center z-1'>
                     </div> 
                     <div className='mb-1 rounded-r-lg col-start-9 col-span-4 row-start-1 row-span-1 flex justify-self-end items-center z-0'>
-                        <Clock />
+                        <Clock data={ timeData.data } />
                     </div>
 
                     <div className='mr-1 rounded-lg border-2 border-white col-span-8 row-start-2 row-span-10 bg-gray-900 flex justify-center items-top'>
