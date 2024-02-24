@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form"
+
 import {
     useGetTimeQuery,
     useGetParkingSlipsQuery,
@@ -27,147 +28,11 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
+import Header from '@/components/Header';
+import Clock from '@/components/Clock';
+import IngoingForm from '@/components/IngoingForm';
+import OutgoingForm from '@/components/OutgoingForm';
 
-const Header = () => {
-    return (
-        <div className='pl-5 flex flex-row space-x-4'>
-            <div className='font-medium text-white'>Home</div>
-        </div>
-    );
-}
-
-const Clock = ({ data }) => {
-    return (
-        <div>
-            <div className='pr-5 flex flex-row'>
-                { data ?<div className='font-medium text-white'> {data.formatted_datetime_now}</div> : null}
-            </div>
-        </div>
-    );
-}
-
-const OutgoingForm = () => {
-    const [postUnpark] = usePostUnparkMutation();
-
-    const form = useForm({
-        defaultValues: {
-            parkingSlipID: "",
-        },
-      });
-
-    const onSubmit = (values) => {
-        const data = {
-            parking_slip_id: values.parkingSlipID
-        }
-        const response = postUnpark(data);
-        console.log(response)
-
-        form.reset();
-    }
-
-    return (
-        <Form {...form}>
-        <form id="outgoingForm" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='pt-5 font-medium text-2xl text-white'>
-                Outgoing Form
-            </div>
-            <div className='pt-5 pl-5 space-y-2'>
-                <FormField
-                    control={form.control}
-                    name="parkingSlipID"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-white">Parking Slip ID</FormLabel>
-                        <FormControl>
-                        <Input className="text-white" placeholder="" {...field} />
-                        </FormControl>
-                        <FormDescription className='text-gray-300'>
-                            The parking slip number given on entry
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-            </div>
-        </form>
-      </Form>
-    );
-}
-
-const IngoingForm = () => {
-    const [postPark] = usePostParkMutation();
-    const form = useForm({
-        defaultValues: {
-            entryPoint: "",
-            plateNumber: "",
-            size: "",
-        },
-      });
-
-    const onSubmit = (values) => {
-        console.log(values);
-
-        const data = {
-            vehicle: { plate_number: values.plateNumber, size: values.size},
-            parking_entry_point: { name: values.entryPoint}
-        }
-        const response = postPark(data);
-        console.log(response);
-
-        form.reset();
-    }
-
-    return (
-        <Form {...form}>
-        <form id="ongoingForm" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='pt-5 font-medium text-2xl text-white'>
-                Ingoing Form
-            </div>
-            <div className='pt-5 pl-5 space-y-2'>
-                <FormField
-                    control={form.control}
-                    name="entryPoint"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-white">Entry Point</FormLabel>
-                        <FormControl>
-                        <Input className="text-white" placeholder="e.g. North Exit" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="plateNumber"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-white">Plate number</FormLabel>
-                        <FormControl>
-                        <Input className="text-white" placeholder="e.g. AAA111" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="size"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-white">Size</FormLabel>
-                        <FormControl>
-                        <Input className="text-white" placeholder="e.g. S, M, L" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-            </div>
-        </form>
-      </Form>
-    );
-}
 
 const ParkingSlipTable = ({ data }) => {
     return (
@@ -204,7 +69,6 @@ const ParkingSlipTable = ({ data }) => {
 const Home = () => {
     const { data } = useGetParkingSlipsQuery([]);
     const timeData = useGetTimeQuery("");
-    // console.log(timeData.data);
 
     return (
         <div>

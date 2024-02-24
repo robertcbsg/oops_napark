@@ -5,7 +5,7 @@ module Api
     module Parking
       class SlotsController < ApplicationController
         def index
-          parking_slots = serializer(ParkingSlot.all)
+          parking_slots = ParkingSlot.all
 
           render json: parking_slots
         end

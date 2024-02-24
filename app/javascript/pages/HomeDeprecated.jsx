@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input"
 import { useGetParkingSlipsQuery, usePostParkMutation, usePostUnparkMutation } from '@/api';
 
-const HomeLegacy = () => {
+const HomeDeprecated = () => {
     const [postPark] = usePostParkMutation();
     const [postUnpark] = usePostUnparkMutation();
     const { data } = useGetParkingSlipsQuery([]);
@@ -98,4 +98,4 @@ const HomeLegacy = () => {
     )
 }
 
-export default HomeLegacy
+export default HomeDeprecated
