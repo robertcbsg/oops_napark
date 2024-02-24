@@ -1,5 +1,5 @@
 {
-  "name": "oops_parking",
+  "name": "oops_napark",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

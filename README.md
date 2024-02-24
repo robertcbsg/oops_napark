@@ -38,10 +38,10 @@ Before starting, you need to install the folowing dependencies:
 
 ```bash
 # Clone this project
-$ git clone https://github.com/robertcbsg/oops_parking.git
+$ git clone https://github.com/robertcbsg/oops_napark.git
 
 # Access
-$ cd oops_parking
+$ cd oops_napark
 
 # Install dependencies
 $ bundle install
