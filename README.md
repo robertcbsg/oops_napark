@@ -4,8 +4,6 @@ Simple parking allocation webapp written in Ruby and Javascript.
 
 <br>
 
-**NOTE**: The official submission is in the main branch and is unaltered (save for this README). 
-However, it didn't feel right to leave the project as it is, hence the new changes in the polish branch.
 
 ## 📖 Table of Contents ##
 
